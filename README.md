@@ -1,3 +1,4 @@
+
 # GAS-LEAK-DETECTION-SYSTEM-USING-GAS-SENSOR
 
 ## Aim:
@@ -11,7 +12,7 @@
 	
 ## Circuit Diagram:
 
- 
+ <img width="1487" height="872" alt="WhatsApp Image 2026-06-03 at 9 02 50 AM" src="https://github.com/user-attachments/assets/316e3239-760c-4b06-a3e1-5f9c42f8e3ea" />
 
 
 
@@ -58,9 +59,52 @@ Step 7: Save Your Work
 
 ## Program:
 
+
+#include <LiquidCrystal.h>
+// initialize the library with the numbers of the interface pins
+LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
+void setup() {
+  Serial.begin(9600);
+  // set up the LCD's number of columns and rows:
+  lcd.begin(16, 2);
+  pinMode(13,OUTPUT);
+  pinMode(7,OUTPUT);
+  pinMode(6,OUTPUT);
+}
+void loop() {
+  int gas_data;
+  gas_data = analogRead(A0);
+  lcd.setCursor(00,00);
+  lcd.print("Gas :");
+  lcd.setCursor(6,00);
+  lcd.print(gas_data);
+  if(gas_data > 800){
+  	digitalWrite(13,HIGH);
+    delay(100);
+    digitalWrite(13,LOW);
+    lcd.setCursor(00,1);
+    lcd.print("DANGER");
+  }else if(gas_data > 700){
+    digitalWrite(6,HIGH);
+  	delay(100);
+    digitalWrite(6,LOW);
+    lcd.setCursor(00,1);
+    lcd.print("WARNING");
+  }else {
+    digitalWrite(7,HIGH);
+    lcd.setCursor(00,1);
+    lcd.print("SAFE");
+  }
+  Serial.println(gas_data);
+  delay(100);
+  lcd.clear();
+}
+
 ## Output:
 
    
+<img width="1513" height="1009" alt="568815457-d57d6165-72cb-4973-b157-5c89d3c0fa98" src="https://github.com/user-attachments/assets/73e30467-a66d-472f-9bb6-e3e44578500a" />
 
 ## Result:
 
+The air quality using Gas Sensor MQ-2 with Arduino UNO Board/ESP-32 using Tinker CAD is been simulated.
